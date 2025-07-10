@@ -30,8 +30,9 @@ def test_read_csv(sample_csv):
 
 def test_parse_where_condition():
     """Тестирование парсинга условия фильтрации"""
-    assert parse_where_condition("price<500") == ("price", "<", "500")
+    assert parse_where_condition("price<305") == ("price", "<", "305")
     assert parse_where_condition("brand=samsung") == ("brand", "=", "samsung")
+    assert parse_where_condition("rating>4.8") == ("rating", ">", "4.8")
 
 
 def test_parse_aggregate():
@@ -60,6 +61,6 @@ def test_apply_aggregation_avg():
 def test_apply_aggregation_min_max():
     """Тестирование минимального и максимального значений"""
     header = ['price']
-    data = [['100'], ['200'], ['2000']]
+    data = [['100'], ['200'], ['1000']]
     assert apply_aggregation(data, header, ("price", "min")) == [['price_min', 100.0]]
-    assert apply_aggregation(data, header, ("price", "max")) == [['price_max', 2000.0]]
+    assert apply_aggregation(data, header, ("price", "max")) == [['price_max', 1000.0]]
